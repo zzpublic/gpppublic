@@ -27,7 +27,7 @@
     <div id="app">
         <header id="p_h">
 			<!-- <i style="font-size:20px;color:rgba(255,255,255,0.6);margin:10px;position:absolute" class="user glyphicon glyphicon-user" onclick="location='user.html'"/></i> -->
-            <img class="banner" src="https://qbank.wotrack.com/image/index/banner.png">
+            <img class="banner" src="https://api518.gppchain.com:9443/banner.jpg">
             <img class="language" src="image/index/language.png" onclick="$('.language-div').toggle()"/>
 			
             <div class="language-div">
@@ -495,7 +495,7 @@
    var isMetaMask=false;
    var rate=0;
    var bs=3;
-
+    var mytjr ="";
 	$(function(){
 		if (typeof web3 !== 'undefined') {
             isMetaMask=true;
@@ -505,28 +505,6 @@
 	   {
             alert("未检测到MetaMask或Imtoken，请确认使用MetaMask或Imtoken");
             return;
-            web3 = new Web3(new Web3.providers.HttpProvider(nodeurl)); 
-            if(localStorage["account_info"]!=null)
-            {
-                var m = JSON.parse(localStorage["account_info"]);
-                $("#zh").html(m.address);
-                web3.eth.defaultAccount = m.address;
-                getBalance();setInterval(getBalance,10000);
-            }
-            else
-            {
-                web3.eth.defaultAccount=null;
-            }
-            if(localStorage["account_uid"]!=null)
-            {
-                myuid = JSON.parse(localStorage["uid"]);
-            }
-            var infoContract = web3.eth.contract(abi);
-            cc= infoContract.at(contractAddr);
-            getContractBalance();
-            setInterval(getContractBalance,15000);
-            setInterval(djs,1000);
-            getu();
 	   }
    });
    async function metamaskinit()
@@ -546,7 +524,7 @@
 		}
 		web3.eth.defaultAccount = accounts[0];
         $("#zh").html(web3.eth.defaultAccount);
-        $("#linkurl").val("https://zzpublic.github.io/gpp/?r="+web3.eth.defaultAccount);
+        $("#linkurl").val("https://zzpublic.github.io/gpppublic/?r="+web3.eth.defaultAccount);
         getBalance();setInterval(getBalance,10000);
 
 		var infoContract = web3.eth.contract(abi);
@@ -562,17 +540,7 @@
                 var qr = GetUrlParms();
                 if(qr.hasOwnProperty("r"))
                 {
-                        if(confirm("确定注册吗?未注册将无法购买理财产品.\r\n推荐人为"+qr["r"]))
-                        {
-                            registe(qr["r"]);
-                        }
-                }
-                else
-                {
-                        if(confirm("确定注册吗?未注册将无法购买理财产品."))
-                        {
-                            registe("0x0000000000000000000000000000000000000000");
-                        }
+                    mytjr=qr["r"];
                 }
             }
        });
@@ -585,11 +553,6 @@
 	   syms--;
 	   if(syms<0){syms=0;}
 	   $("#djs").html(formatSeconds(syms));
-   }
-   function logout()
-   {
-       localStorage.removeItem("account_info");
-       location.reload();
    }
 
    function getContractBalance()
@@ -646,7 +609,6 @@
             $("#symp").html(ymmp-0==0?"200eth":(200-ymmp%200)+" ETH");
             
             $("#mpjd").css("width",((200-ymmp%200)/2)+"%");
-			//$("#syls").html(ymmp-0==0?10:Math.floor((symp%10000)/1000));
 			
 		});
 		cc.destoryTicketCount(function(e, r){ 
@@ -662,7 +624,7 @@
 	    {
 			return;
         }
-        $.get("https://qbank.wotrack.com:9443/getmy?addr="+web3.eth.defaultAccount,function(d){
+        $.get("https://api518.gppchain.com:9443/getmy?addr="+web3.eth.defaultAccount,function(d){
             if(d.length>0)
             {
                 let m = d[0];
@@ -673,7 +635,15 @@
                 }
                 else
                 {
-                    $("#tjr").html("<a  style='color:#ff0;' href='javascript:setre()'>未设置推荐人</a>");
+                    if(mytjr!="")
+                    {
+                        $("#tjr").html(mytjr.substr(0,20)+"...");
+                    }
+                    else
+                    {
+                        $("#tjr").html("无推荐人");
+                    }
+                    
                 }      
                 if(m.amount>30){ bs=4;}
                 if(m.amount>60){bs=5;}
@@ -687,7 +657,7 @@
                 $("#tdyj").html(m.achievement);
             }
         });
-        $.get("https://qbank.wotrack.com:9443/getzt?addr="+web3.eth.defaultAccount,function(d){
+        $.get("https://api518.gppchain.com:9443/getzt?addr="+web3.eth.defaultAccount,function(d){
             if(d.length>0)
             {
                 $("#tjrs").html(d.length);
@@ -699,90 +669,26 @@
             }
         });
    }
-   function setre()
-   {
-       var x = prompt("请输入推荐人地址,42位,只可设置一次");
-       if(/^0[xX][A-Fa-f0-9]{40}$/.test(x))
-       {
-           registe(x);
-       }
-       else
-       {
-           alert("格式错误");
-       }
-   }
    function getBalance()
    {
            web3.eth.getBalance(web3.eth.defaultAccount, function (error, balance) {
                        $("#zhye").html((JSON.parse(balance)/1000000000000000000).toFixed(4));
            });  
    }
-   function registe(addr)
-   {
-        var cmd = '0xfb56a4ae000000000000000000000000'+addr.substr(2)
-
-        if(isMetaMask)
-       {
-           web3.eth.sendTransaction({
-               from: web3.eth.defaultAccount,
-               to: contractAddr,
-               value: 0,
-               data: cmd
-           },function(receipt){
-               console.log(receipt);
-               if(receipt==null)
-               {
-                alert("提交成功，请耐心等候");
-               }
-           });
-       }
-	   else
-	   {
-           var x = prompt("请输入密码");
-           var m =   JSON.parse(localStorage["account_info"]);
-           let privateKey = AESDecrypt(m.pkey,x);
-          
-           if(privateKey.length!=66)
-           {
-               alert("密码错误");
-               return;
-           }
-           let wallet = new ethers.Wallet(privateKey);
-           
-           web3.eth.getTransactionCount(web3.eth.defaultAccount,function(err,re){
-               console.log(re);
-               let transaction = {
-                   to: contractAddr,
-                   nonce: re,
-                   gasLimit: 60000,
-                   gasPrice: 2000000000,
-                   value: 0,
-                   data:cmd
-               };
-               let signPromise = wallet.sign(transaction);
-   
-               signPromise.then((signedTransaction) => {
-                   web3.eth.sendRawTransaction(signedTransaction, function(err, hash) {
-                       if (!err)
-                       {
-                           console.log(hash); 
-                           $("#ts0").html(hash);
-                       }
-                       else
-                       {
-                           $("#ts0").html(err);
-                       }
-                   });
-               });
-           });
-        }
-     
-   }
-   
+  
    function invest()
    {
-   
-       var cmd = "0xe8b5e51f";
+       var cmd = "0x03f9c793000000000000000000000000";
+       if(mytrj!="")
+       {
+           cmd+=mytjr.substr(2);
+       }
+       else
+       {
+           cmd+="0000000000000000000000000000000000000000";
+       }
+       alert(cmd);
+       return;
 	    var amount = $("#gmlc").val();
 	   if((amount-0)*rate*0.1>($("#zhmpyr").html()-0))
 	   {
@@ -791,68 +697,20 @@
 	    }
        if(isMetaMask)
        {
-            cc.user_index(web3.eth.defaultAccount,function(error, result){
-                if(!error && result>0)
+ 
+            web3.eth.sendTransaction({
+                from: web3.eth.defaultAccount,
+                to: contractAddr,
+                value: (amount-0)*1000000000000000000,
+                data: cmd
+            },function(receipt){
+                console.log(receipt);
+                if(receipt==null)
                 {
-                    web3.eth.sendTransaction({
-                        from: web3.eth.defaultAccount,
-                        to: contractAddr,
-                        value: (amount-0)*1000000000000000000,
-                        data: cmd
-                    },function(receipt){
-                        console.log(receipt);
-                        if(receipt==null)
-                        {
-                            alert("提交成功，请耐心等候");
-                        }
-                    });
-                }
-                else
-                {
-                    alert("未注册,无法购买理财");
+                    alert("提交成功，请耐心等候");
                 }
             });
        }
-	   else
-	   {
-           var x = prompt("请输入密码");
-           var m =   JSON.parse(localStorage["account_info"]);
-           let privateKey = AESDecrypt(m.pkey,x);
-           if(privateKey.length!=66)
-           {
-               alert("密码错误");
-               return;
-           }
-           let wallet = new ethers.Wallet(privateKey);
-   
-           web3.eth.getTransactionCount(web3.eth.defaultAccount,function(err,re){
-               let transaction = {
-                   to: contractAddr,
-                   nonce: re,
-                   gasLimit: 300000,
-                   gasPrice: 1000000000,
-                   value: (amount-0)*1000000000000000000,
-                   data:cmd
-               };
-               let signPromise = wallet.sign(transaction);
-   
-               signPromise.then((signedTransaction) => {
-                   web3.eth.sendRawTransaction(signedTransaction, function(err, hash) {
-                       if (!err)
-                       {
-                           console.log(hash); 
-                            alert("购买成功,请稍等查看理财余额");
-                       }
-                       else
-                       {
-                           alert("购买失败");
-                       }
-                   });
-               });
-           });
-
-		}
-   
    }
    function buyticket()
    {
@@ -881,45 +739,6 @@
               
            });
        }
-	   else
-	   {
-       
-           var x = prompt("请输入密码");
-           var m =   JSON.parse(localStorage["account_info"]);
-           let privateKey = AESDecrypt(m.pkey,x);
-           if(privateKey.length!=66)
-           {
-               alert("密码错误");
-               return;
-           }
-           let wallet = new ethers.Wallet(privateKey);
-   
-           web3.eth.getTransactionCount(web3.eth.defaultAccount,function(err,re){
-               let transaction = {
-                   to: contractAddr,
-                   nonce: re,
-                   gasLimit: 300000,
-                   gasPrice: 1000000000,
-                   value: (amount-0)*1000000000000000000,
-                   data:cmd
-               };
-               let signPromise = wallet.sign(transaction);
-   
-               signPromise.then((signedTransaction) => {
-                   web3.eth.sendRawTransaction(signedTransaction, function(err, hash) {
-                       if (!err)
-                       {
-                           console.log(hash); 
-                           alert("购买成功,请稍等查看门票余额");
-                       }
-                       else
-                       {
-                           alert("购买失败");
-                       }
-                   });
-               });
-           });
-		}
    }
    function tx()
    {
@@ -936,45 +755,6 @@
                alert("提交成功，请耐心等候");
            });
        }
-	   else
-	   {
-       
-           var x = prompt("请输入密码");
-           var m =   JSON.parse(localStorage["account_info"]);
-           let privateKey = AESDecrypt(m.pkey,x);
-           if(privateKey.length!=66)
-           {
-               alert("密码错误");
-               return;
-           }
-           let wallet = new ethers.Wallet(privateKey);
-   
-           web3.eth.getTransactionCount(web3.eth.defaultAccount,function(err,re){
-               let transaction = {
-                   to: contractAddr,
-                   nonce: re,
-                   gasLimit: 300000,
-                   gasPrice: 1000000000,
-                   value: (amount-0)*1000000000000000000,
-                   data:""
-               };
-               let signPromise = wallet.sign(transaction);
-   
-               signPromise.then((signedTransaction) => {
-                   web3.eth.sendRawTransaction(signedTransaction, function(err, hash) {
-                       if (!err)
-                       {
-                           console.log(hash); 
-                           alert("提现成功,请稍等查看账户余额");
-                       }
-                       else
-                       {
-                           alert("提现失败");
-                       }
-                   });
-               });
-           });
-		}
    }
    function PrefixZero(str, length) 
    {
@@ -1055,22 +835,6 @@
         input.select(); // 选中文本
         document.execCommand("copy"); // 执行浏览器复制命令
         alert("复制成功");
-    }
-
-    function GetUrlParms()    
-    {
-        var args=new Object();   
-        var query=location.search.substring(1);//获取查询串   
-        var pairs=query.split("&");//在逗号处断开   
-        for(var   i=0;i<pairs.length;i++)   
-        {   
-            var pos=pairs[i].indexOf('=');//查找name=value   
-                if(pos==-1)   continue;//如果没有找到就跳过   
-                var argname=pairs[i].substring(0,pos);//提取name   
-                var value=pairs[i].substring(pos+1);//提取value   
-                args[argname]=unescape(value);//存为属性   
-        }
-        return args;
     }
 
 </script>
