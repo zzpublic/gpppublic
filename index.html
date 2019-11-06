@@ -532,21 +532,14 @@
 		getContractBalance();
 		setInterval(getContractBalance,15000);
 		setInterval(djs,1000);
-		getu();
-        
-       cc.user_index(web3.eth.defaultAccount,function(error, result){
-           if(!error && result<1)
-           {
-                var qr = GetUrlParms();
-                if(qr.hasOwnProperty("r"))
-                {
-                    mytjr=qr["r"];
-                }
-            }
-       });
+	
+        var qr = GetUrlParms();
+        if(qr.hasOwnProperty("r"))
+        {
+            mytjr=qr["r"];
+        }
 
-
-
+        getu();
    }
    function djs()
    {
