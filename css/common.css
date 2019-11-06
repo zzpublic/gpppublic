@@ -1,0 +1,36 @@
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  line-height: 45px;
+  background-color: #1D67E2;
+  color: #fff;
+}
+.header .header-left {
+  width: 30%;
+  height: 45px;
+  text-align: left;
+  position: relative;
+}
+.header .header-left:after {
+  position: absolute;
+  left: 11px;
+  content: '';
+  width: 11px;
+  height: 11px;
+  top: 16px;
+  border-radius: 0;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+}
+.header .header-middle {
+  width: 40%;
+  text-align: center;
+}
+.header .header-right {
+  width: 30%;
+  text-align: right;
+  padding-right: 11px;
+}

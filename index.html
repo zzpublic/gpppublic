@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en" style="overflow-y: scroll;background-color: #fff">
+<head>
+    <meta charset="UTF-8">
+    <title>GPP</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bui.css"/>
+    <link rel="stylesheet" type="text/css" href="css/swiper.min.css"/>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        a
+        {
+            color: #ddd;
+        }
+        .fxaddr
+        {
+             max-width:120px;overflow:hidden; text-overflow:ellipsis;
+        }
+        .num
+        {
+            color: #999;
+        }
+    </style>
+</head>
+<body style="background-color: #000">
+<div>
+    <div id="app">
+        <header id="p_h">
+			<!-- <i style="font-size:20px;color:rgba(255,255,255,0.6);margin:10px;position:absolute" class="user glyphicon glyphicon-user" onclick="location='user.html'"/></i> -->
+            <img class="banner" src="https://qbank.wotrack.com/image/index/banner.png">
+            <img class="language" src="image/index/language.png" onclick="$('.language-div').toggle()"/>
+			
+            <div class="language-div">
+                <div class="active">
+                    中文繁体
+                </div>
+                <div>
+                    日语
+                </div>
+                <div>
+                    韩语
+                </div>
+            </div>
+            <div class="header-title">
+                <img src="image/index/header_kuang.png"/>
+                <p>新一代去中心化链商造富运动</p>
+            </div>
+        </header>
+        <div id="p_b">
+            <div class="award inline-div">
+                <div class="title">
+                    — 奖池 —
+                    <div class="right">
+                        <img src="image/index/question.png" onclick="model('explain')"/>
+                    </div>
+                </div>
+                <div class="body">
+                    <div class="left">
+                        <div>
+                            <button>幸运池</button>
+                            <span onclick="model('award')">开奖记录</span>
+                        </div>
+                        <div>
+                            <span id="xjc"></span> ETH
+                        </div>
+                        <img src="image/index/small.png"/>
+                    </div>
+                    <div class="right">
+                        <div>
+                            <button>保险池</button>
+                        </div>
+                        <div>
+                            <span id="djc"></span> ETH
+                        </div>
+                        <div>
+                            <p style="font-size: 17px">倒计时</p>
+                            <p><span id="djs"></span></p>
+                        </div>
+                        <img src="image/index/big.png"/>
+                    </div>
+                </div>
+            </div>
+            <div class="ticket inline-div">
+                <div class="title">
+                    — 门票购买 —
+                </div>
+                <div class="body">
+                    <div class="item">
+                        <div class="row-div">
+                            <span>1:<span id="dhbl"></span></span>
+                            <button onclick="model('ticket')">兑换</button>
+                        </div>
+                        <div class="row-div">
+                            <div class="progress progress-striped" style="width: 70%;height: 5px;margin: 0;">
+                                <div class="progress-bar progress-bar-info" role="progressbar"
+                                     aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"
+                                     id="mpjd" style="width: 90%;background-color: #E2E208">
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <span class="num">剩余额度：<span id="symp"></span></span>
+                    </div> 
+					<div class="item">
+                        <div class="row-div">
+                            <span>1:<span id="dhbl2"></span></span>
+                        </div>
+                        <div class="row-div">
+                            <div class="progress progress-striped" style="width: 70%;height: 5px;margin: 0;">
+                                <div class="progress-bar progress-bar-info" role="progressbar"
+                                     aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                                     style="width: 0%;background-color: #E2E208">
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <!-- <div class="num2">剩余轮数:<span></span>10轮</div> -->
+                        <span class="num">剩余额度：<span id="symp2">200 eth</span></span>
+                    </div> 
+					<div class="item">
+                        <div class="row-div">
+                            <span>1:<span id="dhbl3"></span></span>
+                        </div>
+                        <div class="row-div">
+                            <div class="progress progress-striped" style="width: 70%;height: 5px;margin: 0;">
+                                <div class="progress-bar progress-bar-info" role="progressbar"
+                                     aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                                     style="width: 0%;background-color: #E2E208">
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <!-- <div class="num2">剩余轮数:<span>10</span>轮</div> -->
+                        <span class="num">剩余额度：<span id="symp3">200 eth</span></span>
+                    </div> 
+                </div>
+            </div>
+            <p class="destroy">已销毁门票总数：<span id="yxhmp"></span></p>
+            <div class="inline-div user">
+                <div class="title">
+                    — 个人中心 —
+                    <div class="right">
+                        <img src="image/index/question.png" onclick="model('user')"/>
+                    </div>
+                </div>
+                <div class="body" style="position: relative;">
+                    <div>
+                        <div align="center" id="zh" style="font-size:20px;color:#fff; max-width:300px;overflow:hidden; text-overflow:ellipsis;">未登录</div>
+                        <div><p style="display:block;max-width:350px;overflow:hidden; text-overflow:hidden; word-break: break-all;">我的推荐人：<span id="tjr" ></span></p></div>
+                        <div><p>账户ETH余额：<span id="zhye">0</span> ETH</p></div>
+						<p>我的等级：<span id="wddj">V0</span></p>
+                        <p>我的分享：<span id="tjrs">0</span> （人）</p>
+                        <p>团队业绩：<span id="tdyj">0</span> ETH</p>
+                        <p>我的邀请链接：<input id="linkurl" readonly="true" style="width:50%;border:0px solid transparent; background:transparent;">&nbsp;&nbsp;<a style="color: #FFF77A;" href="javascript:cp()">复制</a></p>
+                    </div>
+                    <div style="position: absolute; right:10px; top:160px;">
+                        <button onclick="model('share')" class="xq">详情</button>
+                    </div>
+                </div>
+            </div>
+            <div class="contract inline-div">
+                <div class="title">
+                    — 合约活期理财 —
+                    <div class="right">
+                        <img src="image/index/question.png" onclick="model('contract')"/>
+                    </div>
+                </div>
+                <div class="body">
+                    <div class="balance">
+                        <div>
+                                <div class="num" style="font-size: 18px;color: #ddd;"><input type="number" value="" id="gmlc" oninput="jseth2(this.value)"  style="width: 125px;border: none;border-bottom: 1px solid #ddd;background-color: transparent;">ETH</div>
+                                <div class="need"  style="font-size: 16px;color: #ddd;margin-top:10px;">需要门票：<span id="xymp"></span>  </div>
+                        </div>
+                        <div>
+                            <button onclick="invest()">立即参与</button>
+                        </div>
+                    </div>
+                    <div class="earnings" style="position: relative;">
+                        <div>
+                            <p>理财账户余额：<span id="lczhye">0</span> ETH</p>
+                            <p>预计可获得收益：<span id="yjsy">0</span> ETH</p>
+                            <p>已累计获得收益：<span id="yhsy">0</span> ETH</p>
+                            <p>出局剩余可收益：<span  id="sysy">0</span> ETH</p>
+                            <p>账户可提现收益：<span  id="ktxsy">0</span> ETH</p>
+                            <p>账户门票余额：<span  id="zhmpyr">0</span></p>
+                        </div>
+                        <div style="position: absolute;right: 10px; top:140px"> <button onclick="model('withdraw')">申请提现</button></div>
+                        <div style="position: absolute;right: 10px; top:70px"> <button onclick="model('reward')">收益明细</button></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="inline-div preachers_reward  ">
+                <div class="title">
+                    — 布道者奖励 —
+                    <div class="right">
+                        <img src="image/index/question.png" onclick="model('preachers_reward')"/>
+                    </div>
+                </div>
+                <div class="body">
+                    <table>
+                        <thead>
+                        <tr>
+                            <td>排名</td>
+                            <td>ID</td>
+                            <td>奖励</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            <div class="inline-div preachers_reward  ">
+                <div class="title">
+                    — 全球分红 —
+                    <div class="right">
+                            <img src="image/index/question.png" onclick="model('user')"/>
+                    </div>
+                </div>
+                <div class="body">
+                    <table>
+                        <thead>
+                        <tr>
+                            <td>级别</td>
+                            <td>人数</td>
+                            <td>人均分红</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            <div class="hr">
+                <img src="image/index/hr.png"/>
+                <p>渠道合作伙伴</p>
+            </div>
+            <div class="friend">
+                <img src="image/index/friend.png"/>
+            </div>
+            <div class="contact inline-div">
+                <div class="title">
+                    — 联系我们 —
+                </div>
+                <div class="body">
+                    goldpoolplan@gmail.com
+                </div>
+            </div>
+            <div class="copyright">
+                <p>版权所有©2019-2020</p>
+                <p>GOLD POOL PLAN 保留所有权利</p>
+            </div>
+        </div>
+        <div id="model">
+            <div class="model-bg">
+            </div>
+            <div class="model award model-table">
+                <div class="title">
+                    <p>开奖记录</p>
+                    <div class="right">
+                        <img class="close-img" src="image/index/close.png"/>
+                    </div>
+                </div>
+                <div class="body">
+                    <table>
+                        <thead>
+                        <tr>
+                            <td>时间</td>
+                            <td>ID</td>
+                            <td>奖金</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="model explain model-text" style="top: calc(50% - 234px);">
+                <div class="title">
+                    <p>说明</p>
+                    <div class="right">
+                        <img class="close-img" src="image/index/close.png"/>
+                    </div>
+                </div>
+                <div class="body">
+                    <p class="t">幸运池</p>
+                    <p>门票兑换所得30%ETH用于每日开奖，随机抽取31名幸运玩家。</p>
+                    <p class="flex"> <span>第1名</span>      独享当日门票收益10%ETH</p>
+                    <p class="flex"><span>第2-11名 </span>     共享当日门票收益10%ETH</p>
+                    <p class="flex"><span>第12-31名 </span>      共享当日门票收益10%ETH</p>
+                    <br>
+                    <p class="t">保险池</p>
+                    <p>门票兑换所得50%ETH进入保险池，用于保障最后加入玩家利益，封顶50000ETH。
+                        采用48小时倒计时制，理财合约每加入1个ETH增加3小时，封顶48小时。
+                        48小时没有玩家充值，倒计时结束保险池开出，按投资时间由后往前分配给最后参与的玩家，按投资金额应得倍数逐个出场。</p>
+
+                </div>
+            </div>
+            <div class="model user model-text">
+                <div class="title">
+                    <p>说明</p>
+                    <div class="right">
+                        <img class="close-img" src="image/index/close.png"/>
+                    </div>
+                </div>
+                <div class="body">
+                    <p>V1   三条线，每条线业绩达到300ETH  </p>
+                    <p> 享受全球业绩5%加权分红，伞下新增业绩3%分红</p>
+                    <p> V2  直推出现三个V1</p>
+                    <p> 享受全球业绩3%加权分红，伞下新增业绩2%分红</p>
+                    <p> V3  直推出现三个V2  </p>
+                    <p> 享受全球业绩2%加权分红，伞下新增业绩1%分红</p>
+                    <p> 平级享受三代新增业绩分红</p>
+                </div>
+            </div>
+            <div class="model ticket buy" >
+                <div class="title">
+                    <p>门票购买</p>
+                    <div class="right">
+                        <img class="close-img" src="image/index/close.png"/>
+                    </div>
+                </div>
+                <div class="body">
+                    <div class="num">花费ETH：<input type="number" value="0" id="xyeth" oninput="jseth(this.value)">  </div>
+                    <div class="need">获得GPP数量：<span id="gmmps">0</span>  </div>
+                    <div class="button" onclick="buyticket()">
+                        <button>立即支付</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="model share model-table" >
+                <div class="title">
+                    <p>我的分享</p>
+                    <div class="right">
+                        <img class="close-img" src="image/index/close.png"/>
+                    </div>
+                </div>
+                <div class="body">
+                    <table>
+                        <thead>
+                        <tr>
+                            <td>ID</td>
+                            <td>理财</td>
+                            <td>业绩</td>
+                        </tr>
+                        </thead>
+                        <tbody id="wdfx">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="model contact buy" >
+                <div class="title">
+                    <p>理财</p>
+                    <div class="right">
+                        <img class="close-img" src="image/index/close.png"/>
+                    </div>
+                </div>
+                <div class="body">
+                    <!-- <div class="num">支付金额：<input type="text " value="0" id="gmlc" oninput="jseth2(this.value)">ETH  </div>
+                    <div class="need">需要门票：<span id="xymp">0</span>  </div>
+                    <div class="button" onclick="invest()">
+                        <button>立即支付</button>
+                    </div> -->
+                </div>
+            </div>
+
+            <div class="model withdraw buy">
+                <div class="title">
+                    <p>申请提现</p>
+                    <div class="right">
+                        <img class="close-img" src="image/index/close.png"/>
+                    </div>
+                </div>
+                <div class="body">
+                    <div class="need">提现额度：<span id="txed">0</span>  </div>
+                    <div class="button">
+                        <button onclick="tx()">立即提现</button>
+                    </div>
+                </div>
+            </div>
+            <div class="model contract model-text">
+                <div class="title">
+                    <p>说明</p>
+                    <div class="right">
+                        <img class="close-img" src="image/index/close.png"/>
+                    </div>
+                </div>
+                <div class="body">
+                    <p class="t">理财模式</p>
+                    <p class="flex"> <span>1-30以太</span>3倍出局</p>
+                    <p class="flex"> <span>31-60以太</span>4倍出局</p>
+                    <p class="flex"> <span>61以太以上</span>5倍出局</p>
+                    <p>动静结合出局制，出局后24小时可原点复投。需购买10%投资金额的门票GPP，并且销毁后才可加入理财合约</p>
+                    <p class="t">例</p>
+                    <p >投资100ETH，需再用10ETH参与共振获得门票，销毁门票后方可加入合约，即100ETH+价值10ETH的GPP门票销毁。</p>
+                </div>
+            </div>
+            <div class="model preachers_reward model-text" >
+                <div class="title">
+                    <p>说明</p>
+                    <div class="right">
+                        <img class="close-img" src="image/index/close.png"/>
+                    </div>
+                </div>
+                <div class="body">
+                    <p class="t">布道者奖励</p>
+                    <p>门票兑换所得20%ETH用于奖励每日直推业绩最高11名玩家</p>
+                    <p class="flex"> <span style="width: 60%">每日直推业绩第1名</span>独享10%</p>
+                    <p class="flex"> <span style="width: 60%">每日直推业绩第2-11名</span>分享10%</p>
+                </div>
+            </div>
+
+            <div class="model reward model-table" >
+                <div class="title">
+                    <p>— 收益明细 —</p>
+                    <div class="right">
+                        <img class="close-img" src="image/index/close.png"/>
+                    </div>
+                </div>
+                <div class="body">
+                    <table>
+                        <thead>
+                        <tr>
+                            <td class="select">
+                                <select>
+                                    <option>全部奖励</option>
+                                    <option>静态分红</option>
+                                    <option>直推奖励</option>
+                                    <option>幸运池奖励</option>
+                                    <option>全球分红</option>
+                                    <option>新增分红</option>
+                                    <option>保险池奖励</option>
+                                </select>
+                            </td>
+                            <td>时间</td>
+                            <td>额度</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="script/jquery.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="script/common.js"></script>
+<script src="web3.min.js"></script>
+<script src="script/bui.js"></script>
+<script src="script/swiper.min.js"></script>
+<script src="script/vue.js"></script>
+<script src="https://cdn.ethers.io/scripts/ethers-v4.min.js"></script>
+<script src="https://cdn.bootcss.com/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+<script type="text/javascript">
+    init_bui()
+
+    function model(name) {
+        if(name){
+            $('.model-bg').show();
+            $('#model .model.'+name).show();
+        }
+    }
+
+    function init_bui() {
+        $('.language-div div').click(function () {
+            $('.language-div div').removeClass('active');
+            $(this).addClass('active')
+            $('.language-div').hide()
+        });
+        $('.close-img').click(function () {
+            $('.model').hide();
+            $('.model-bg').hide();
+        });
+        var loading = bui.loading()
+        bui.ready(function () {
+
+        })
+    }
+	
+
+	var syms=0;
+	var myuid=-1;
+	var rate=-1;
+	var cc;
+   var ok=false;
+   var wallet;
+   var isMetaMask=false;
+   var rate=0;
+   var bs=3;
+
+	$(function(){
+		if (typeof web3 !== 'undefined') {
+            isMetaMask=true;
+			metamaskinit();
+       } 
+	   else
+	   {
+            alert("未检测到MetaMask或Imtoken，请确认使用MetaMask或Imtoken");
+            return;
+            web3 = new Web3(new Web3.providers.HttpProvider(nodeurl)); 
+            if(localStorage["account_info"]!=null)
+            {
+                var m = JSON.parse(localStorage["account_info"]);
+                $("#zh").html(m.address);
+                web3.eth.defaultAccount = m.address;
+                getBalance();setInterval(getBalance,10000);
+            }
+            else
+            {
+                web3.eth.defaultAccount=null;
+            }
+            if(localStorage["account_uid"]!=null)
+            {
+                myuid = JSON.parse(localStorage["uid"]);
+            }
+            var infoContract = web3.eth.contract(abi);
+            cc= infoContract.at(contractAddr);
+            getContractBalance();
+            setInterval(getContractBalance,15000);
+            setInterval(djs,1000);
+            getu();
+	   }
+   });
+   async function metamaskinit()
+   {
+	   accounts = await ethereum.enable();
+		if(accounts.length<1)
+		{
+			if(ethereum.isMetaMask)
+			{
+				alert("已检测到MetaMask，请确认MetaMask是否已登录!");
+			}
+			else
+			{
+				alert("已检测到imtoken，请确认imtoken有eth账户!");
+			}
+			return;
+		}
+		web3.eth.defaultAccount = accounts[0];
+        $("#zh").html(web3.eth.defaultAccount);
+        $("#linkurl").val("https://zzpublic.github.io/gpp/?r="+web3.eth.defaultAccount);
+        getBalance();setInterval(getBalance,10000);
+
+		var infoContract = web3.eth.contract(abi);
+		cc= infoContract.at(contractAddr);
+		getContractBalance();
+		setInterval(getContractBalance,15000);
+		setInterval(djs,1000);
+		getu();
+        
+       cc.user_index(web3.eth.defaultAccount,function(error, result){
+           if(!error && result<1)
+           {
+                var qr = GetUrlParms();
+                if(qr.hasOwnProperty("r"))
+                {
+                        if(confirm("确定注册吗?未注册将无法购买理财产品.\r\n推荐人为"+qr["r"]))
+                        {
+                            registe(qr["r"]);
+                        }
+                }
+                else
+                {
+                        if(confirm("确定注册吗?未注册将无法购买理财产品."))
+                        {
+                            registe("0x0000000000000000000000000000000000000000");
+                        }
+                }
+            }
+       });
+
+
+
+   }
+   function djs()
+   {
+	   syms--;
+	   if(syms<0){syms=0;}
+	   $("#djs").html(formatSeconds(syms));
+   }
+   function logout()
+   {
+       localStorage.removeItem("account_info");
+       location.reload();
+   }
+
+   function getContractBalance()
+   {
+       cc.contractBalance(function(error, result){
+           if(!error)
+           {
+               console.log(JSON.parse(result));
+               $("#hyye").html((JSON.parse(result)/1000000000000000000).toFixed(4));
+           }
+              
+           else
+           {   console.error(error);}    
+       });
+	   if( web3.eth.defaultAccount!=null)
+	   {
+			cc.balanceOf(web3.eth.defaultAccount,function(error, result){
+			   if(!error)
+			   {
+				   console.log(JSON.parse(result));
+				    $("#zhmpyr").html((JSON.parse(result)/1000000000000000000).toFixed(4)-0);
+			   }
+				  
+			   else
+			   {   console.error(error);}    
+		   });
+		   }
+		cc.rate(function(error, result){
+			   if(!error)
+			   {
+				   console.log(JSON.parse(result));
+				   $("#dhbl").html(result+"");
+				   $("#dhbl2").html((result-1)+"");
+				   $("#dhbl3").html((result-2)+"");
+				   rate = result;
+			   }
+				  
+			   else
+			   {   console.error(error);}    
+		   });
+
+		cc.sellTicketIncome(function(e, r){ 
+			$("#xjc").html((JSON.parse(r)/1000000000000000000*0.3).toFixed(4));
+			$("#djc").html((JSON.parse(r)/1000000000000000000*0.5).toFixed(4));
+		});
+
+		var x = Math.round(new Date() / 1000);
+		
+        cc.endTime(function(e, r){ syms=JSON.parse(r)-x; if(syms<0){syms=0;} $("#djs").html(formatSeconds(syms));});
+
+		cc.sellTicketIncome(function(e, r){ 
+			var ymmp=(JSON.parse(r)/1000000000000000000).toFixed(0);
+			var symp  =628000000-ymmp;
+            $("#symp").html(ymmp-0==0?"200eth":(200-ymmp%200)+" ETH");
+            
+            $("#mpjd").css("width",((200-ymmp%200)/2)+"%");
+			//$("#syls").html(ymmp-0==0?10:Math.floor((symp%10000)/1000));
+			
+		});
+		cc.destoryTicketCount(function(e, r){ 
+			$("#yxhmp").html((JSON.parse(r)/1000000000000000000).toFixed(0));
+		});
+
+		getu();
+   }
+
+   function getu()
+   {
+        if( web3.eth.defaultAccount==null)
+	    {
+			return;
+        }
+        $.get("https://qbank.wotrack.com:9443/getmy?addr="+web3.eth.defaultAccount,function(d){
+            if(d.length>0)
+            {
+                let m = d[0];
+                myuid= m.id;
+                if(m.parent!="0x0000000000000000000000000000000000000000")
+                {
+                    $("#tjr").html(m.parent.substr(0,20)+"...");
+                }
+                else
+                {
+                    $("#tjr").html("<a  style='color:#ff0;' href='javascript:setre()'>未设置推荐人</a>");
+                }      
+                if(m.amount>30){ bs=4;}
+                if(m.amount>60){bs=5;}
+                $("#lczhye").html(m.amount-0);
+                $("#yjsy").html((m.amount*bs).toFixed(4)-0);
+                $("#yhsy").html(m.rewardall-0);
+                $("#sysy").html((m.amount*bs-m.rewardall).toFixed(4)-0);
+                $("#txed").html(m.reward-0);
+                $("#ktxsy").html(m.reward-0);
+                $("#wddj").html("V"+m.level);
+                $("#tdyj").html(m.achievement);
+            }
+        });
+        $.get("https://qbank.wotrack.com:9443/getzt?addr="+web3.eth.defaultAccount,function(d){
+            if(d.length>0)
+            {
+                $("#tjrs").html(d.length);
+                $("#wdfx").html("");
+                $(d).each(function(i,v){
+                    $("#wdfx").append("<tr><td class='fxaddr'>"+v.addr+"</td><td>"+(v.amount-0)+"</td><td>"+(v.achievement-0)+"</td></tr>");
+                });
+                
+            }
+        });
+   }
+   function setre()
+   {
+       var x = prompt("请输入推荐人地址,42位,只可设置一次");
+       if(/^0[xX][A-Fa-f0-9]{40}$/.test(x))
+       {
+           registe(x);
+       }
+       else
+       {
+           alert("格式错误");
+       }
+   }
+   function getBalance()
+   {
+           web3.eth.getBalance(web3.eth.defaultAccount, function (error, balance) {
+                       $("#zhye").html((JSON.parse(balance)/1000000000000000000).toFixed(4));
+           });  
+   }
+   function registe(addr)
+   {
+        var cmd = '0xfb56a4ae000000000000000000000000'+addr.substr(2)
+
+        if(isMetaMask)
+       {
+           web3.eth.sendTransaction({
+               from: web3.eth.defaultAccount,
+               to: contractAddr,
+               value: 0,
+               data: cmd
+           },function(receipt){
+               console.log(receipt);
+               if(receipt==null)
+               {
+                alert("提交成功，请耐心等候");
+               }
+           });
+       }
+	   else
+	   {
+           var x = prompt("请输入密码");
+           var m =   JSON.parse(localStorage["account_info"]);
+           let privateKey = AESDecrypt(m.pkey,x);
+          
+           if(privateKey.length!=66)
+           {
+               alert("密码错误");
+               return;
+           }
+           let wallet = new ethers.Wallet(privateKey);
+           
+           web3.eth.getTransactionCount(web3.eth.defaultAccount,function(err,re){
+               console.log(re);
+               let transaction = {
+                   to: contractAddr,
+                   nonce: re,
+                   gasLimit: 60000,
+                   gasPrice: 2000000000,
+                   value: 0,
+                   data:cmd
+               };
+               let signPromise = wallet.sign(transaction);
+   
+               signPromise.then((signedTransaction) => {
+                   web3.eth.sendRawTransaction(signedTransaction, function(err, hash) {
+                       if (!err)
+                       {
+                           console.log(hash); 
+                           $("#ts0").html(hash);
+                       }
+                       else
+                       {
+                           $("#ts0").html(err);
+                       }
+                   });
+               });
+           });
+        }
+     
+   }
+   
+   function invest()
+   {
+   
+       var cmd = "0xe8b5e51f";
+	    var amount = $("#gmlc").val();
+	   if((amount-0)*rate*0.1>($("#zhmpyr").html()-0))
+	   {
+		   alert("门票余额不足");
+		   return;
+	    }
+       if(isMetaMask)
+       {
+            cc.user_index(web3.eth.defaultAccount,function(error, result){
+                if(!error && result>0)
+                {
+                    web3.eth.sendTransaction({
+                        from: web3.eth.defaultAccount,
+                        to: contractAddr,
+                        value: (amount-0)*1000000000000000000,
+                        data: cmd
+                    },function(receipt){
+                        console.log(receipt);
+                        if(receipt==null)
+                        {
+                            alert("提交成功，请耐心等候");
+                        }
+                    });
+                }
+                else
+                {
+                    alert("未注册,无法购买理财");
+                }
+            });
+       }
+	   else
+	   {
+           var x = prompt("请输入密码");
+           var m =   JSON.parse(localStorage["account_info"]);
+           let privateKey = AESDecrypt(m.pkey,x);
+           if(privateKey.length!=66)
+           {
+               alert("密码错误");
+               return;
+           }
+           let wallet = new ethers.Wallet(privateKey);
+   
+           web3.eth.getTransactionCount(web3.eth.defaultAccount,function(err,re){
+               let transaction = {
+                   to: contractAddr,
+                   nonce: re,
+                   gasLimit: 300000,
+                   gasPrice: 1000000000,
+                   value: (amount-0)*1000000000000000000,
+                   data:cmd
+               };
+               let signPromise = wallet.sign(transaction);
+   
+               signPromise.then((signedTransaction) => {
+                   web3.eth.sendRawTransaction(signedTransaction, function(err, hash) {
+                       if (!err)
+                       {
+                           console.log(hash); 
+                            alert("购买成功,请稍等查看理财余额");
+                       }
+                       else
+                       {
+                           alert("购买失败");
+                       }
+                   });
+               });
+           });
+
+		}
+   
+   }
+   function buyticket()
+   {
+   
+       var cmd = "0xedca914c";
+       var amount = $("#xyeth").val()-0;
+	   console.log(amount);
+	   if(amount>($("#zhye").html()-0))
+	   {
+		   alert("ETH余额不足"+amount+" "+$("#zhye").html());
+		   return;
+	    }
+	   if(isMetaMask)
+       {
+           web3.eth.sendTransaction({
+               from: web3.eth.defaultAccount,
+               to: contractAddr,
+               value: (amount-0)*1000000000000000000,
+               data: cmd
+           },function(receipt){
+               console.log(receipt);
+               if(receipt==null)
+               {
+                alert("提交成功，请耐心等候");
+               }
+              
+           });
+       }
+	   else
+	   {
+       
+           var x = prompt("请输入密码");
+           var m =   JSON.parse(localStorage["account_info"]);
+           let privateKey = AESDecrypt(m.pkey,x);
+           if(privateKey.length!=66)
+           {
+               alert("密码错误");
+               return;
+           }
+           let wallet = new ethers.Wallet(privateKey);
+   
+           web3.eth.getTransactionCount(web3.eth.defaultAccount,function(err,re){
+               let transaction = {
+                   to: contractAddr,
+                   nonce: re,
+                   gasLimit: 300000,
+                   gasPrice: 1000000000,
+                   value: (amount-0)*1000000000000000000,
+                   data:cmd
+               };
+               let signPromise = wallet.sign(transaction);
+   
+               signPromise.then((signedTransaction) => {
+                   web3.eth.sendRawTransaction(signedTransaction, function(err, hash) {
+                       if (!err)
+                       {
+                           console.log(hash); 
+                           alert("购买成功,请稍等查看门票余额");
+                       }
+                       else
+                       {
+                           alert("购买失败");
+                       }
+                   });
+               });
+           });
+		}
+   }
+   function tx()
+   {
+       var amount = 0;
+	   if(isMetaMask)
+       {
+           web3.eth.sendTransaction({
+               from: web3.eth.defaultAccount,
+               to: contractAddr,
+               value: 0,
+               data: ""
+           },function(receipt){
+               console.log(receipt);
+               alert("提交成功，请耐心等候");
+           });
+       }
+	   else
+	   {
+       
+           var x = prompt("请输入密码");
+           var m =   JSON.parse(localStorage["account_info"]);
+           let privateKey = AESDecrypt(m.pkey,x);
+           if(privateKey.length!=66)
+           {
+               alert("密码错误");
+               return;
+           }
+           let wallet = new ethers.Wallet(privateKey);
+   
+           web3.eth.getTransactionCount(web3.eth.defaultAccount,function(err,re){
+               let transaction = {
+                   to: contractAddr,
+                   nonce: re,
+                   gasLimit: 300000,
+                   gasPrice: 1000000000,
+                   value: (amount-0)*1000000000000000000,
+                   data:""
+               };
+               let signPromise = wallet.sign(transaction);
+   
+               signPromise.then((signedTransaction) => {
+                   web3.eth.sendRawTransaction(signedTransaction, function(err, hash) {
+                       if (!err)
+                       {
+                           console.log(hash); 
+                           alert("提现成功,请稍等查看账户余额");
+                       }
+                       else
+                       {
+                           alert("提现失败");
+                       }
+                   });
+               });
+           });
+		}
+   }
+   function PrefixZero(str, length) 
+   {
+        return (Array(length).join('0') + str).slice(-length);
+   }
+
+	function AESDecrypt(word,password) {
+       var key = CryptoJS.enc.Utf8.parse(CryptoJS.MD5(password).toString());
+       var encryptedHexStr = CryptoJS.enc.Hex.parse(word);
+       var encryptedBase64Str = CryptoJS.enc.Base64.stringify(encryptedHexStr);
+       var decryptedData = CryptoJS.AES.decrypt(encryptedBase64Str, key, {
+       mode: CryptoJS.mode.ECB,
+       padding: CryptoJS.pad.Pkcs7
+       });
+       return  decryptedData.toString(CryptoJS.enc.Utf8);
+   }
+   
+   function AESEncrypt(word,password) {
+       var key = CryptoJS.enc.Utf8.parse(CryptoJS.MD5(password).toString());
+       var encryptedData = CryptoJS.AES.encrypt(word, key, {
+       mode: CryptoJS.mode.ECB,
+       padding: CryptoJS.pad.Pkcs7
+       });
+       return encryptedData.ciphertext.toString();
+   }
+   function formatSeconds(value) {
+
+	    var theTime = parseInt(value);// 秒
+	    var middle= 0;// 分
+	    var hour= 0;// 小时
+
+	    if(theTime > 60) {
+	        middle= parseInt(theTime/60);
+	        theTime = parseInt(theTime%60);
+	        if(middle> 60) {
+	            hour= parseInt(middle/60);
+	            middle= parseInt(middle%60);
+	        }
+	    }
+	    var result = ""+parseInt(theTime);
+	    if(middle > 0) {
+	        result = ""+parseInt(middle)+":"+result;
+	    }
+	    if(hour> 0) {
+	        result = ""+parseInt(hour)+":"+result;
+	    }
+	    return result;
+    }
+    
+   function jseth(x)
+   {
+		$("#gmmps").html(x*rate); 
+	}
+	function jseth2(x)
+   {
+		$("#xymp").html(x*rate*0.1); 
+    }
+    
+    function GetUrlParms()    
+    {
+        var args=new Object();   
+        var query=location.search.substring(1);//获取查询串   
+        var pairs=query.split("&");//在逗号处断开   
+        for(var   i=0;i<pairs.length;i++)   
+        {   
+            var pos=pairs[i].indexOf('=');//查找name=value   
+                if(pos==-1)   continue;//如果没有找到就跳过   
+                var argname=pairs[i].substring(0,pos);//提取name   
+                var value=pairs[i].substring(pos+1);//提取value   
+                args[argname]=unescape(value);//存为属性   
+        }
+        return args;
+    }
+
+    function cp() 
+    {
+        var input = document.getElementById("linkurl");
+        input.select(); // 选中文本
+        document.execCommand("copy"); // 执行浏览器复制命令
+        alert("复制成功");
+    }
+
+    function GetUrlParms()    
+    {
+        var args=new Object();   
+        var query=location.search.substring(1);//获取查询串   
+        var pairs=query.split("&");//在逗号处断开   
+        for(var   i=0;i<pairs.length;i++)   
+        {   
+            var pos=pairs[i].indexOf('=');//查找name=value   
+                if(pos==-1)   continue;//如果没有找到就跳过   
+                var argname=pairs[i].substring(0,pos);//提取name   
+                var value=pairs[i].substring(pos+1);//提取value   
+                args[argname]=unescape(value);//存为属性   
+        }
+        return args;
+    }
+
+</script>
+</html>

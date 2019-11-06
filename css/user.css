@@ -1,0 +1,153 @@
+#p_b {
+  background-image: url("../image/user/bg.png");
+  background-size: 100% auto;
+}
+#p_b .user-info {
+  padding-top: 40px;
+}
+#p_b .user-info p {
+  margin-bottom: 29px;
+  color: #FFF77A;
+  font-size: 15px;
+  padding: 0 26px;
+}
+#p_b .inline-div {
+  margin: 0 10px;
+  border: 1px solid #A59C13;
+  background-color: rgba(165, 156, 19, 0.1);
+}
+#p_b .inline-div .title {
+  height: 42px;
+  line-height: 42px;
+  text-align: center;
+  color: #FFF77A;
+  font-size: 15px;
+  border-bottom: 1px solid #A59C13;
+}
+#p_b .inline-div .title .right {
+  margin-right: 9px;
+  float: right;
+}
+#p_b .inline-div .title .right img {
+  width: 22px;
+}
+#p_b button {
+  background-image: linear-gradient(to right, #E2E208, #CCBD00);
+  padding: 6px 17px;
+  border-radius: 16px;
+  border: none;
+  color: #000;
+  font-size: 14px;
+}
+#p_b .new-user {
+  margin-bottom: 30px;
+}
+#p_b .new-user .body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  padding: 0 9px 0 15px;
+  color: #ddd;
+}
+#p_b .new-user .body p {
+  margin: 0;
+  line-height: 61px;
+}
+#p_b .new-user .body input {
+  width: 130px;
+  height: 61px;
+  line-height: 62px;
+  padding-left: 10px;
+  border: 0;
+  background: none;
+}
+#p_b .into-user {
+  margin-bottom: 37px;
+}
+#p_b .into-user .body {
+  font-size: 15px;
+  padding: 0 9px 0 7.5px;
+  color: #ddd;
+}
+#p_b .into-user .body p {
+  padding-left: 7.5px;
+  margin: 0;
+  line-height: 61px;
+  border-bottom: 1px solid #A59C13;
+}
+#p_b .into-user .body input {
+  position: relative;
+  top: -1px;
+  width: 200px;
+  height: 61px;
+  line-height: 61px;
+  padding-left: 10px;
+  border: 0;
+  background: none;
+}
+#p_b .into-user .body .button {
+  text-align: right;
+}
+#p_b .into-user .body .button button {
+  margin: 21px 0;
+  width: 90px;
+}
+#p_b .index-link {
+  text-align: center;
+  color: #FFF77A;
+  font-size: 15px;
+  /* 未访问的链接 */
+  /* 已访问的链接 */
+  /* 鼠标移动到链接上 */
+}
+#p_b .index-link a:link {
+  color: #FFF77A;
+}
+#p_b .index-link a:visited {
+  color: #FFF77A;
+}
+#p_b .index-link a:hover {
+  color: #FFF77A;
+}
+#p_b .index-link a:active {
+  color: #FFF77A;
+}
+#p_b .key {
+  margin-bottom: 51px;
+}
+#p_b .key .body {
+  padding: 23px 15px;
+  color: #ddd;
+  font-size: 15px;
+  /* 未访问的链接 */
+  /* 已访问的链接 */
+  /* 鼠标移动到链接上 */
+}
+#p_b .key .body p {
+  margin: 0;
+}
+#p_b .key .body a {
+  color: #FFF77A;
+  float: right;
+  margin-top: -7px;
+}
+#p_b .key .body a:link {
+  color: #FFF77A;
+}
+#p_b .key .body a:visited {
+  color: #FFF77A;
+}
+#p_b .key .body a:hover {
+  color: #FFF77A;
+}
+#p_b .key .body a:active {
+  color: #FFF77A;
+}
+#p_b .login-out {
+  text-align: center;
+}
+#p_b .login-out button {
+  width: 85%;
+  margin: 0 auto 47px;
+}
