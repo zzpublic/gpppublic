@@ -493,15 +493,15 @@
     }
 	
 
-	var syms=0;
-	var myuid=-1;
-	var rate=-1;
-	var cc;
-   var ok=false;
-   var wallet;
-   var isMetaMask=false;
-   var rate=0;
-   var bs=3;
+    var syms=0;
+    var myuid=-1;
+    var rate=-1;
+    var cc;
+    var ok=false;
+    var wallet;
+    var isMetaMask=false;
+    var rate=0;
+    var bs=3;
     var mytjr ="";
 	$(function(){
 		if (typeof web3 !== 'undefined') {
@@ -579,7 +579,7 @@
 			   else
 			   {   console.error(error);}    
 		   });
-		   }
+		}
 		cc.rate(function(error, result){
 			   if(!error)
 			   {
@@ -668,7 +668,7 @@
    function getBalance()
    {
            web3.eth.getBalance(web3.eth.defaultAccount, function (error, balance) {
-                       $("#zhye").html((JSON.parse(balance)/1000000000000000000).toFixed(4));
+                $("#zhye").html((JSON.parse(balance)/1000000000000000000).toFixed(4));
            });  
    }
   
@@ -783,29 +783,44 @@
        });
        return encryptedData.ciphertext.toString();
    }
-   function formatSeconds(value) {
+//    function formatSeconds(value) {
 
-	    var theTime = parseInt(value);// 秒
-	    var middle= 0;// 分
-	    var hour= 0;// 小时
+// 	    var theTime = parseInt(value);// 秒
+// 	    var middle= 0;// 分
+// 	    var hour= 0;// 小时
 
-	    if(theTime > 60) {
-	        middle= parseInt(theTime/60);
-	        theTime = parseInt(theTime%60);
-	        if(middle> 60) {
-	            hour= parseInt(middle/60);
-	            middle= parseInt(middle%60);
-	        }
-	    }
-	    var result = ""+parseInt(theTime);
-	    if(middle > 0) {
-	        result = ""+parseInt(middle)+":"+result;
-	    }
-	    if(hour> 0) {
-	        result = ""+parseInt(hour)+":"+result;
-	    }
-	    return result;
+// 	    if(theTime > 60) {
+// 	        middle= parseInt(theTime/60);
+// 	        theTime = parseInt(theTime%60);
+// 	        if(middle> 60) {
+// 	            hour= parseInt(middle/60);
+// 	            middle= parseInt(middle%60);
+// 	        }
+// 	    }
+// 	    var result = ""+parseInt(theTime);
+// 	    if(middle > 0) {
+// 	        result = ""+parseInt(middle)+":"+result;
+// 	    }
+// 	    if(hour> 0) {
+// 	        result = ""+parseInt(hour)+":"+result;
+// 	    }
+// 	    return result;
+//     }
+
+    function formatSeconds( s ) {
+        if(s<=0) {return '0';}
+        if(s>172800) {s = 172800;}
+        var hour = Math.floor( s / 3600); 
+        var minute = Math.floor( (s -  hour*3600) /60 ); 
+        var second = s - hour*3600 - minute*60;
+        hour < 10 ? hour = '0' + hour : hour = hour;
+        minute < 10 ? minute = '0' + minute : minute = minute;
+        second < 10 ? second = '0' + second : second = second;
+        var result = hour + ":" + minute + ":" + second;
+        return result;
     }
+
+
     
    function jseth(x)
    {
