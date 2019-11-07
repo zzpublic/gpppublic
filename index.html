@@ -709,9 +709,14 @@
 	   console.log(amount);
 	   if(amount>($("#zhye").html()-0))
 	   {
-		   alert("ETH余额不足"+amount+" "+$("#zhye").html());
+		   alert("ETH余额不足"+amount+"，只剩余："+$("#zhye").html());
 		   return;
-	    }
+       }
+	   if(amount<0.1)
+	   {
+		   alert("兑换额度最低不能小于0.1ETH！");
+		   return;
+       }
 	   if(isMetaMask)
        {
            web3.eth.sendTransaction({
