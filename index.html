@@ -469,6 +469,13 @@
         }
     }
 
+    function model_hide(name) {
+        if(name){
+            $('.model-bg').hide();
+            $('#model .model.'+name).hide();
+        }
+    }
+
     function init_bui() {
         $('.language-div div').click(function () {
             $('.language-div div').removeClass('active');
@@ -729,6 +736,8 @@
                if(receipt==null)
                {
                 alert("提交成功，请耐心等候");
+                model_hide('ticket');
+                return;
                }
               
            });
